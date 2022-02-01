@@ -5,16 +5,11 @@ use crate::message::Message;
 
 #[derive(Debug, Clone)]
 pub enum UpdateMessage {
-    Update,
     Failed(String),
 }
 
 pub fn update(message: UpdateMessage) -> Command<Message> {
     match message {
-        UpdateMessage::Update => {
-            println!("Updating...");
-            Command::perform(attempt_update(), map_result_type)
-        }
         UpdateMessage::Failed(err) => {
             println!("Update failed: {}", err);
             Command::none()

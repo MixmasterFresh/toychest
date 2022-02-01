@@ -32,9 +32,9 @@ struct Toychest {
     enabled: bool,
     exit: button::State,
     should_exit: bool,
-    running_update: bool,
 }
 
+#[derive(Default)]
 struct Theme {}
 
 impl button::StyleSheet for Theme {
@@ -67,12 +67,6 @@ impl container::StyleSheet for Theme {
             )),
             ..container::Style::default()
         }
-    }
-}
-
-impl std::default::Default for Theme {
-    fn default() -> Self {
-        Self {}
     }
 }
 
@@ -116,7 +110,7 @@ impl Application for Toychest {
                 self.should_exit = true;
                 Command::none()
             }
-            Message::UpdateEvent(updateMessage) => update::update(updateMessage),
+            Message::UpdateEvent(update_message) => update::update(update_message),
             Message::Ignored => Command::none(),
         }
     }

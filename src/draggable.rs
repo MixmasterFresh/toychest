@@ -4,8 +4,8 @@ use iced_native::{renderer, Element, Event, Widget};
 
 pub struct DragBar<'a, Message, Renderer> {
     canvas: Element<'a, Message, Renderer>,
-    dragging: bool,
-    last_moved: iced::Point,
+    _dragging: bool,
+    _last_moved: iced::Point,
 }
 
 // enum DraggableMessage {
@@ -16,8 +16,8 @@ impl<'a, Message, Renderer> DragBar<'a, Message, Renderer> {
     pub fn new(element: Element<'a, Message, Renderer>) -> Self {
         DragBar {
             canvas: element,
-            dragging: false,
-            last_moved: iced::Point::default(),
+            _dragging: false,
+            _last_moved: iced::Point::default(),
         }
     }
 }
@@ -74,15 +74,15 @@ where
     fn on_event(
         &mut self,
         event: iced_native::Event,
-        layout: iced_native::Layout<'_>,
-        cursor_position: iced::Point,
+        _layout: iced_native::Layout<'_>,
+        _cursor_position: iced::Point,
         _renderer: &Renderer,
         _clipboard: &mut dyn iced_native::Clipboard,
         _shell: &mut iced_native::Shell<'_, Message>,
     ) -> iced_native::event::Status {
         match event {
             // TODO: make the dragging work
-            Event::Mouse(mouse_event) => iced_native::event::Status::Ignored,
+            Event::Mouse(_mouse_event) => iced_native::event::Status::Ignored,
             _ => iced_native::event::Status::Ignored,
         }
     }
@@ -95,12 +95,12 @@ where
     }
 }
 
-impl<'a, Message, Renderer> Into<Element<'a, Message, Renderer>> for DragBar<'a, Message, Renderer>
+impl<'a, Message, Renderer> From<DragBar<'a, Message, Renderer>> for Element<'a, Message, Renderer>
 where
     Renderer: 'a + renderer::Renderer,
     Message: 'a,
 {
-    fn into(self) -> Element<'a, Message, Renderer> {
-        Element::new(self)
+    fn from(dragbar: DragBar<'a, Message, Renderer>) -> Element<'a, Message, Renderer> {
+        Element::new(dragbar)
     }
 }
