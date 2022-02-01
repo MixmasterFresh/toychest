@@ -9,7 +9,7 @@ pub enum UpdateMessage {
     Failed(String),
 }
 
-fn update(message: UpdateMessage) -> Command<Message> {
+pub fn update(message: UpdateMessage) -> Command<Message> {
     match message {
         UpdateMessage::Update => {
             println!("Updating...");
@@ -22,7 +22,7 @@ fn update(message: UpdateMessage) -> Command<Message> {
     }
 }
 
-fn map_result_type(result: Result<(), Box<dyn ::std::error::Error>>) -> Message {
+pub fn map_result_type(result: Result<(), Box<dyn ::std::error::Error>>) -> Message {
     match result {
         Ok(()) => Message::Ignored,
         Err(error) => {
@@ -32,7 +32,7 @@ fn map_result_type(result: Result<(), Box<dyn ::std::error::Error>>) -> Message 
     }
 }
 
-async fn attempt_update() -> Result<(), Box<dyn ::std::error::Error>> {
+pub async fn attempt_update() -> Result<(), Box<dyn ::std::error::Error>> {
     let status = self_update::backends::github::Update::configure()
         .repo_owner("MixmasterFresh")
         .repo_name("toychest")

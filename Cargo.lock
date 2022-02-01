@@ -3,16 +3,6 @@
 version = 3
 
 [[package]]
-name = "Toychest"
-version = "0.0.0"
-dependencies = [
- "iced",
- "iced_native",
- "mimalloc",
- "self_update",
-]
-
-[[package]]
 name = "ab_glyph"
 version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2487,6 +2477,16 @@ name = "tower-service"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "360dfd1d6d30e05fda32ace2c8c70e9c0a9da713275777f5a4dbb8a1893930c6"
+
+[[package]]
+name = "toychest"
+version = "0.0.0"
+dependencies = [
+ "iced",
+ "iced_native",
+ "mimalloc",
+ "self_update",
+]
 
 [[package]]
 name = "tracing"

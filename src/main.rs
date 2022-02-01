@@ -82,7 +82,10 @@ impl Application for Toychest {
     type Flags = ();
 
     fn new(_flags: ()) -> (Toychest, Command<Message>) {
-        (Toychest::default(), Command::new(UpdateEvent()))
+        (
+            Toychest::default(),
+            Command::perform(update::attempt_update(), update::map_result_type),
+        )
     }
 
     fn title(&self) -> String {
@@ -97,21 +100,25 @@ impl Application for Toychest {
                 if self.last.len() > 5 {
                     let _ = self.last.remove(0);
                 }
+                Command::none()
             }
             Message::NativeEvent(event) => {
                 if let Event::Window(window::Event::CloseRequested) = event {
                     self.should_exit = true;
                 }
+                Command::none()
             }
             Message::Toggled(enabled) => {
                 self.enabled = enabled;
+                Command::none()
             }
             Message::Exit => {
                 self.should_exit = true;
+                Command::none()
             }
-        };
-
-        Command::none()
+            Message::UpdateEvent(updateMessage) => update::update(updateMessage),
+            Message::Ignored => Command::none(),
+        }
     }
 
     fn subscription(&self) -> Subscription<Message> {

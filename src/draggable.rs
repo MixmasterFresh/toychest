@@ -14,7 +14,11 @@ pub struct DragBar<'a, Message, Renderer> {
 
 impl<'a, Message, Renderer> DragBar<'a, Message, Renderer> {
     pub fn new(element: Element<'a, Message, Renderer>) -> Self {
-        DragBar { canvas: element }
+        DragBar {
+            canvas: element,
+            dragging: false,
+            last_moved: iced::Point::default(),
+        }
     }
 }
 
@@ -77,9 +81,8 @@ where
         _shell: &mut iced_native::Shell<'_, Message>,
     ) -> iced_native::event::Status {
         match event {
-            Event::Mouse(mouse_event) => {
-                todo!()
-            }
+            // TODO: make the dragging work
+            Event::Mouse(mouse_event) => iced_native::event::Status::Ignored,
             _ => iced_native::event::Status::Ignored,
         }
     }
