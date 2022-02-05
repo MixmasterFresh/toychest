@@ -129,6 +129,7 @@ jobs:
           name: version
           path: ./version/version
   build:
+    if: startsWith(github.ref,'refs/tags/v')
     needs:
       - version
       - lints
@@ -202,7 +203,7 @@ jobs:
           name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-${{ matrix.target }}
           path: ./target/release/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}${{ matrix.suffix }}
   release:
-    if: github.ref == 'refs/heads/main'
+    if: startsWith(github.ref,'refs/tags/v')
     needs:
       - build
     runs-on: ubuntu-latest
